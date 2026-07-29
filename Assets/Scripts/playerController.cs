@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.Apple.ReplayKit;
+using UnityEngine.Assertions.Must;
 
 public class playerController : MonoBehaviour
 {
+
+    public float speed = 10f;
 
     // boost setting 
     public float cooldownTime = 5f;
@@ -10,8 +13,11 @@ public class playerController : MonoBehaviour
 
     //  jump logic
     public float jumpPower = 500;
-    private bool doubleJump = true;
-    private bool onGround = true;
+    public int maxJumps = 2;
+    int jumpsRemaining;
+
+    // dirctions 
+    private float horizontal = 0;
 
 
     //Components
@@ -20,6 +26,7 @@ public class playerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        jumpsRemaining = maxJumps;
     }
 
     // Update is called once per frame
@@ -27,23 +34,27 @@ public class playerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            jump();
+            Jump();
         }
-        
+        horizontal = Input.GetAxisRaw(InputAxiss.Horizontal);
+    }
+    private void FixedUpdate()
+    {
+        HandleMove();
     }
     private void LateUpdate()
     {
-        handelMove();
-    }
-    void handelMove()
-    {
 
     }
-    void jump()
+    void HandleMove()
     {
-        if (onGround) onGround = false;
-        else if (doubleJump) doubleJump = false;
-        else return;
+        rb.velocity = new Vector2( horizontal*speed,rb.velocity.y);
+    }
+    void Jump()
+    {
+        if (jumpsRemaining == 0) return;
+
+        jumpsRemaining--;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);// for the second jump
         rb.AddForce(Vector2.up * jumpPower ,ForceMode2D.Impulse );
@@ -52,8 +63,7 @@ public class playerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(tagsEnum.ground.ToString()))
         {
-            onGround = true;
-            doubleJump = true;
+            jumpsRemaining = maxJumps;
         }
     }
 }
