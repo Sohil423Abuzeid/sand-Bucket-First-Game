@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Apple.ReplayKit;
 using UnityEngine.Assertions.Must;
@@ -5,14 +7,18 @@ using UnityEngine.Assertions.Must;
 public class playerController : MonoBehaviour
 {
 
-    public float speed = 10f;
-
+    public float actualSpeed ;
+    public float bulsePower = 5f;
     // boost setting 
-    public float cooldownTime = 5f;
+    public float normalSpeed = 10f;
+    public float cooldownTime = 10f;
+    public float boostTime = 5f;
     private bool boost = true;
+    public bool boosted = false;
+    public float boostSpeed = 30f;
 
     //  jump logic
-    public float jumpPower = 500;
+    public float jumpPower = 5;
     public int maxJumps = 2;
     int jumpsRemaining;
 
@@ -27,6 +33,7 @@ public class playerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         jumpsRemaining = maxJumps;
+        actualSpeed = normalSpeed;
     }
 
     // Update is called once per frame
@@ -35,6 +42,10 @@ public class playerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            StartCoroutine(startBoost());
         }
         horizontal = Input.GetAxisRaw(InputAxiss.Horizontal);
     }
@@ -45,10 +56,28 @@ public class playerController : MonoBehaviour
     private void LateUpdate()
     {
 
+        
+    }
+    IEnumerator startBoost()
+    {
+        if (!boost) yield break;
+
+        boost = !boost;
+        boosted = !boosted;
+        actualSpeed = boostSpeed;
+        
+        yield return new WaitForSeconds(boostTime);
+
+        actualSpeed = normalSpeed;
+
+        yield return new WaitForSeconds(cooldownTime - boostTime);
+
+        boost = !boost;
+        boosted = !boosted;
     }
     void HandleMove()
     {
-        rb.velocity = new Vector2( horizontal*speed,rb.velocity.y);
+        rb.velocity = new Vector2( horizontal* actualSpeed, rb.velocity.y);
     }
     void Jump()
     {
@@ -64,6 +93,8 @@ public class playerController : MonoBehaviour
         if (collision.gameObject.CompareTag(tagsEnum.ground.ToString()))
         {
             jumpsRemaining = maxJumps;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
         }
     }
 }
