@@ -298,12 +298,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actualSpeed: 10
-  bulsePower: 2
+  bulsePower: 0
   normalSpeed: 10
   cooldownTime: 10
-  boostTime: 5
+  boostTime: 1
   boosted: 0
-  boostSpeed: 30
+  boostSpeed: 15
   jumpPower: 5
   maxJumps: 2
 --- !u!61 &406124331
