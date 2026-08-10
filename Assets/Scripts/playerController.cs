@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Apple.ReplayKit;
@@ -17,14 +18,15 @@ public class playerController : MonoBehaviour
     public bool boosted = false;
     public float boostSpeed = 30f;
 
+     
     //  jump logic
     public float jumpPower = 5;
     public int maxJumps = 2;
-    int jumpsRemaining;
+    public int jumpsRemaining =0 ;
 
     // dirctions 
     private float horizontal = 0;
-
+    public float lastGroundY = 0;
 
     //Components
     private Rigidbody2D rb;
@@ -34,6 +36,7 @@ public class playerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         jumpsRemaining = maxJumps;
         actualSpeed = normalSpeed;
+        lastGroundY = transform.position.y;
     }
 
     // Update is called once per frame
@@ -92,8 +95,9 @@ public class playerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(tagsEnum.ground.ToString()))
         {
+            lastGroundY = transform.position.y;
             jumpsRemaining = maxJumps;
-            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.velocity = new Vector2(rb.velocity.x, math.max(0,rb.velocity.y));
             rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
         }
     }

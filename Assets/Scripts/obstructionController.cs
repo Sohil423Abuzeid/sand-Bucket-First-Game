@@ -9,6 +9,7 @@ public class obstructionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.tag = tagsEnum.obstruction.ToString();
         collider2D = GetComponent<BoxCollider2D>();
     }
 
