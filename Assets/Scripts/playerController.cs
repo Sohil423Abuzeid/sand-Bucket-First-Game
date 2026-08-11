@@ -1,14 +1,11 @@
 using System.Collections;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Apple.ReplayKit;
-using UnityEngine.Assertions.Must;
 
 public class playerController : MonoBehaviour
 {
 
-    public float actualSpeed ;
+    public float actualSpeed;
     public float bulsePower = 5f;
     // boost setting 
     public float normalSpeed = 10f;
@@ -18,11 +15,11 @@ public class playerController : MonoBehaviour
     public bool boosted = false;
     public float boostSpeed = 30f;
 
-     
+
     //  jump logic
     public float jumpPower = 5;
     public int maxJumps = 2;
-    public int jumpsRemaining =0 ;
+    public int jumpsRemaining = 0;
 
     // dirctions 
     private float horizontal = 0;
@@ -30,10 +27,12 @@ public class playerController : MonoBehaviour
 
     //Components
     private Rigidbody2D rb;
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         jumpsRemaining = maxJumps;
         actualSpeed = normalSpeed;
         lastGroundY = transform.position.y;
@@ -51,6 +50,7 @@ public class playerController : MonoBehaviour
             StartCoroutine(startBoost());
         }
         horizontal = Input.GetAxisRaw(InputAxiss.Horizontal);
+        dirctionAndAnimation();
     }
     private void FixedUpdate()
     {
@@ -59,7 +59,7 @@ public class playerController : MonoBehaviour
     private void LateUpdate()
     {
 
-        
+
     }
     IEnumerator startBoost()
     {
@@ -68,7 +68,7 @@ public class playerController : MonoBehaviour
         boost = !boost;
         boosted = !boosted;
         actualSpeed = boostSpeed;
-        
+
         yield return new WaitForSeconds(boostTime);
 
         actualSpeed = normalSpeed;
@@ -78,9 +78,22 @@ public class playerController : MonoBehaviour
         boost = !boost;
         boosted = !boosted;
     }
+    void dirctionAndAnimation()
+    {
+        if (horizontal != 0)
+        {
+            animator.SetBool("moving_bool", true);
+            Vector3 scale = transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * horizontal;
+            transform.localScale = scale;
+        }
+        else
+            animator.SetBool("moving_bool", false);
+    }
     void HandleMove()
     {
-        rb.velocity = new Vector2( horizontal* actualSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(horizontal * actualSpeed, rb.velocity.y);
+        
     }
     void Jump()
     {
@@ -89,7 +102,7 @@ public class playerController : MonoBehaviour
         jumpsRemaining--;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);// for the second jump
-        rb.AddForce(Vector2.up * jumpPower ,ForceMode2D.Impulse );
+        rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -97,7 +110,7 @@ public class playerController : MonoBehaviour
         {
             lastGroundY = transform.position.y;
             jumpsRemaining = maxJumps;
-            rb.velocity = new Vector2(rb.velocity.x, math.max(0,rb.velocity.y));
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(0, rb.velocity.y));
             rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
         }
     }
