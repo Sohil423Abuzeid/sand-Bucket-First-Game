@@ -41,6 +41,9 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        animator.SetFloat("velocity_float",rb.velocity.y);
+
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
@@ -98,7 +101,7 @@ public class playerController : MonoBehaviour
     void Jump()
     {
         if (jumpsRemaining == 0) return;
-
+        animator.SetTrigger("jump_trigger");
         jumpsRemaining--;
 
         rb.velocity = new Vector2(rb.velocity.x, 0);// for the second jump
