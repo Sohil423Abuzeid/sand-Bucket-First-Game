@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
+            StartCoroutine(Jump());
         }
         if (Input.GetKeyDown(KeyCode.C))
         {
@@ -98,13 +98,15 @@ public class playerController : MonoBehaviour
         rb.velocity = new Vector2(horizontal * actualSpeed, rb.velocity.y);
         
     }
-    void Jump()
+    IEnumerator Jump()
     {
-        if (jumpsRemaining == 0) return;
+        if (jumpsRemaining == 0) yield break;
         animator.SetTrigger("jump_trigger");
         jumpsRemaining--;
 
-        rb.velocity = new Vector2(rb.velocity.x, 0);// for the second jump
+        yield return new WaitForSeconds(.280f);
+
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(0, rb.velocity.y));// for the second jump
         rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
     }
     private void OnCollisionEnter2D(Collision2D collision)
