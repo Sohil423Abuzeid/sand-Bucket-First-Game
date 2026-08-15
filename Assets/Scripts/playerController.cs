@@ -111,11 +111,11 @@ public class playerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(tagsEnum.ground.ToString()))
+        if (collision.gameObject.CompareTag(tagsEnum.ground.ToString())&& collision.contacts[0].normal.y > 0.5f)
         {
             lastGroundY = transform.position.y;
             jumpsRemaining = maxJumps;
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(0, rb.velocity.y));
+            rb.velocity = new Vector2(rb.velocity.x,0);
             rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
         }
     }
