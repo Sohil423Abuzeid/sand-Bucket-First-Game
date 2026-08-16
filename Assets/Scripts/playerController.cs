@@ -115,8 +115,9 @@ public class playerController : MonoBehaviour
         {
             lastGroundY = transform.position.y;
             jumpsRemaining = maxJumps;
-            rb.velocity = new Vector2(rb.velocity.x,0);
-            rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
+            //rb.velocity = new Vector2(rb.velocity.x,0);
+            //rb.AddForce(Vector2.up * bulsePower, ForceMode2D.Impulse);
         }
     }
+
 }

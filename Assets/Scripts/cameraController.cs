@@ -15,7 +15,9 @@ public class cameraController : MonoBehaviour
 
     void Update()
     {
-        nextY = (playerController.jumpsRemaining != playerController.maxJumps || player.transform.position.y < playerController.lastGroundY ? player.transform.position.y + verticalShift : transform.position.y);
+
+        nextY = player.transform.position.y;
+        //nextY = (playerController.jumpsRemaining != playerController.maxJumps || player.transform.position.y < playerController.lastGroundY?player.transform.position.y + verticalShift : transform.position.y);
     }
 
     private void LateUpdate()
