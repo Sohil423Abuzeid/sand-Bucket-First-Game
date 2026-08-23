@@ -33,6 +33,19 @@ public class playerController2 : MonoBehaviour
     private float timePastApex;
     private float timeFastFalling;
 
+    // Dash Variables
+    private bool isDashing;
+    private bool isAirDashing;
+    private bool isDashFastFalling;
+    private bool wasAirDashing;
+    private int dashesUsed;
+    private Vector2 dashDirection;
+
+    // Timers
+    private float dashTimer;
+    private float dashOnGroundTimer;
+    private float dashFastFallTime;
+    private float dashFastFallReleaseSpeed;
 
     private void Awake()
     {
@@ -49,14 +62,16 @@ public class playerController2 : MonoBehaviour
         GatherInput();
         UpdateTimers();
         CheckJumpInput();
+        DashCheck();
     }
 
     private void FixedUpdate()
     {
+        HandleAnimation();
         CheckCollisions();
+        HandleDash();
         HandleMovement();
         HandleJumpPhysics();
-        HandleAnimation();
         ApplyVelocity();
     }
 
@@ -64,6 +79,7 @@ public class playerController2 : MonoBehaviour
     {
         animator.SetBool("moving_bool", moveInput.x != 0);
         animator.SetFloat("velocity_float",isGrounded?0: currentVelocity.y);
+        animator.SetBool("dash_bool", isDashing);
     }
     private void GatherInput()
     {
@@ -96,6 +112,12 @@ public class playerController2 : MonoBehaviour
             jumpsUsed = 0;
             isJumping = false;
             isFastFalling = false;
+            
+            if(wasAirDashing)
+            {
+                dashesUsed = Mathf.Max(0, dashesUsed-1);
+                wasAirDashing = false;
+            }
         }
         else if (coyoteTimer > 0 && currentVelocity.y < 0)
         {
@@ -107,6 +129,7 @@ public class playerController2 : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (isDashing) return;
         // Turn the player
         if (moveInput.x != 0)
         {
@@ -171,6 +194,8 @@ public class playerController2 : MonoBehaviour
 
     private void HandleJumpPhysics()
     {
+        if (isDashing) return;
+
         if (bumpedHead)
         {
             isFastFalling = true;
@@ -230,4 +255,90 @@ public class playerController2 : MonoBehaviour
         isFacingRight = !isFacingRight;
         transform.Rotate(0f, 180f, 0f);
     }
+    // under this all dash (fun)s
+    private void DashCheck()
+    {
+        bool dashPressed = Input.GetKeyDown(KeyCode.LeftShift); // Replace with your input
+
+        if (dashPressed)
+        {
+            // Ground Dash Check
+            if (  isGrounded && !isDashing&& dashesUsed < stats.allowedDashes)
+            {
+                InitiateDash();
+            }
+            // Air Dash Check
+            else if (!isGrounded && !isDashing && dashesUsed < stats.allowedDashes)
+            {
+                isAirDashing = true;
+                InitiateDash();
+            }
+        }
+    }
+    private void InitiateDash()
+    {
+        dashDirection = isFacingRight ? Vector2.right : Vector2.left;
+        dashesUsed++;
+        isDashing = true;
+        dashTimer = 0f;
+
+        isJumping = false;
+    }
+    private void HandleDash()
+    {
+        if (isDashing)
+        {
+            dashTimer += Time.fixedDeltaTime;
+
+            if (dashTimer >= stats.dashTime)
+            {
+                StartCoroutine( ResetDashCounter());
+                // End Dash
+                isDashing = false;
+                isAirDashing = false;
+
+                if (!isGrounded)
+                {
+                    isDashFastFalling = true;
+                    wasAirDashing = true;
+                    dashFastFallTime = 0f;
+                    dashFastFallReleaseSpeed = currentVelocity.y;
+                }
+                return;
+            }
+
+            // Lock velocity to dash speed
+            currentVelocity.x = dashDirection.x * stats.dashSpeed;
+            if (dashDirection.y != 0 || isAirDashing)
+            {
+                currentVelocity.y = dashDirection.y * stats.dashSpeed;
+            }
+        }
+        else if (isDashFastFalling)
+        {
+            // Smoothly cancel upward momentum after an upward dash finishes
+            if (currentVelocity.y > 0)
+            {
+                dashFastFallTime += Time.fixedDeltaTime;
+                if (dashFastFallTime < stats.timeForUpwardsCancel)
+                {
+                    currentVelocity.y = Mathf.Lerp(dashFastFallReleaseSpeed, 0f, dashFastFallTime / stats.timeForUpwardsCancel);
+                }
+                else
+                {
+                    currentVelocity.y += gravity * stats.dashGravityOnReleaseMultiplier * Time.fixedDeltaTime;
+                }
+            }
+            else
+            {
+                isDashFastFalling = false;
+            }
+        }
+    }
+    private IEnumerator ResetDashCounter()
+    {
+        yield return new WaitForSeconds(stats.dashCooldown);
+        dashesUsed = Mathf.Max(0, dashesUsed - 1);
+    }
+
 }
