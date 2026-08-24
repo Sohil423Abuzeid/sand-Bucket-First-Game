@@ -2493,7 +2493,8 @@ MonoBehaviour:
   player: {fileID: 1601568415}
   horizontalShift: 3
   verticalShift: 2.5
-  cameraHorizontalSpeed: 0.03
+  cameraHorizontalSpeedIdel: 0.03
+  cameraHorizontalSpeedRunning: 0.005
 --- !u!1 &2030204533
 GameObject:
   m_ObjectHideFlags: 0
