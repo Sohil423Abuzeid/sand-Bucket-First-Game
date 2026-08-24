@@ -11,10 +11,13 @@ public class playerController2 : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     // Movement & Velocity
-    private Vector2 moveInput;
-    private Vector2 currentVelocity;
+    [HideInInspector]
+    public Vector2 moveInput;
+    [HideInInspector]
+    public Vector2 currentVelocity;
     private bool isRunning;
-    private bool isFacingRight = true;
+    [HideInInspector]
+    public bool isFacingRight = true;
 
     // Jump calculations based on GDC formulas
     private float gravity;
@@ -34,7 +37,8 @@ public class playerController2 : MonoBehaviour
     private float timeFastFalling;
 
     // Dash Variables
-    private bool isDashing;
+    [HideInInspector]
+    public bool isDashing; 
     private bool isAirDashing;
     private bool isDashFastFalling;
     private bool wasAirDashing;
@@ -258,6 +262,8 @@ public class playerController2 : MonoBehaviour
     // under this all dash (fun)s
     private void DashCheck()
     {
+        if (isDashing) return;
+
         bool dashPressed = Input.GetKeyDown(KeyCode.LeftShift); // Replace with your input
 
         if (dashPressed)
@@ -292,7 +298,6 @@ public class playerController2 : MonoBehaviour
 
             if (dashTimer >= stats.dashTime)
             {
-                StartCoroutine( ResetDashCounter());
                 // End Dash
                 isDashing = false;
                 isAirDashing = false;
@@ -303,6 +308,10 @@ public class playerController2 : MonoBehaviour
                     wasAirDashing = true;
                     dashFastFallTime = 0f;
                     dashFastFallReleaseSpeed = currentVelocity.y;
+                }
+                else
+                {
+                    StartCoroutine(ResetDashCounter());
                 }
                 return;
             }
@@ -338,6 +347,7 @@ public class playerController2 : MonoBehaviour
     private IEnumerator ResetDashCounter()
     {
         yield return new WaitForSeconds(stats.dashCooldown);
+
         dashesUsed = Mathf.Max(0, dashesUsed - 1);
     }
 

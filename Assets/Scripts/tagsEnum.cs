@@ -7,4 +7,5 @@ public enum tagsEnum
     player =0,
     ground =1,
     obstruction =2,
+    playerzone = 3,
 }

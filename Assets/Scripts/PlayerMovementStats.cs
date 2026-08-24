@@ -42,10 +42,9 @@ public class PlayerMovementStats : ScriptableObject
     public float dashTime = 0.15f;
     public float dashCooldown = 1.0f; 
     public int allowedDashes = 1;
-    public float dashDiagonalBias = 0.4f; // The tweak mentioned at 23:53
+    public float dashDiagonalBias = 0.4f; 
     public float dashGravityOnReleaseMultiplier = 2f;
     public float timeForUpwardsCancel = 0.1f;
-    public bool resetAirDashesOnWallSlide = true;
 
 
 }
