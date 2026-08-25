@@ -25,7 +25,7 @@ MonoBehaviour:
   coyoteTime: 0.1
   apexHangTime: 0.1
   apexThreshold: 1
-  maxFallSpeed: 25
+  maxFallSpeed: 10
   fastFallTime: 0.1
   gravityMultiplierOnRelease: 2
   jumpCutCompensationFactor: 1.1
@@ -36,7 +36,7 @@ MonoBehaviour:
   headDetectionRayLength: 0.05
   dashSpeed: 20
   dashTime: 0.5
-  dashCooldown: 1.5
+  dashCooldown: 0.5
   allowedDashes: 1
   dashDiagonalBias: 0.4
   dashGravityOnReleaseMultiplier: 2

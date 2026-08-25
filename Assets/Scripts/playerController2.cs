@@ -7,9 +7,11 @@ public class playerController2 : MonoBehaviour
     public PlayerMovementStats stats;
     public BoxCollider2D feetCollider;
     public BoxCollider2D headCollider;
+    public CircleCollider2D circleCollider;
 
     private Rigidbody2D rb;
     private Animator animator;
+    private cameraController cameraController;
     // Movement & Velocity
     [HideInInspector]
     public Vector2 moveInput;
@@ -51,11 +53,16 @@ public class playerController2 : MonoBehaviour
     private float dashFastFallTime;
     private float dashFastFallReleaseSpeed;
 
+    //Spawn 
+    private Vector2 spawn;
     private void Awake()
     {
+        spawn = transform.position;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-
+        cameraController = GameObject.FindAnyObjectByType<cameraController>();
+        circleCollider = gameObject.GetComponentsInChildren<CircleCollider2D>()[0];
+        Debug.Log(circleCollider);
         // Math formulas mentioned in the video to calculate precise jump arcs
         gravity = -(2 * stats.jumpHeight) / Mathf.Pow(stats.timeToJumpApex, 2);
         initialJumpVelocity = Mathf.Abs(gravity) * stats.timeToJumpApex;
@@ -350,5 +357,27 @@ public class playerController2 : MonoBehaviour
 
         dashesUsed = Mathf.Max(0, dashesUsed - 1);
     }
+
+    // spawn and void trigger 
+    public void resetSpawn(Vector2 vector2)
+    {
+        spawn = vector2;
+    }
+
+    private void respawn()
+    {
+        transform.position = spawn;
+        cameraController.ResetPostion();
+    }
+
+    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag(tagsEnum.voidlimit.ToString()))
+        {
+            respawn();
+        }
+    }
+
 
 }

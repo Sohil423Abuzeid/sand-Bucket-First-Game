@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class obstructionController : MonoBehaviour
 {
+    public float apearSpeed = .02f;
+
     private BoxCollider2D collider2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -33,24 +35,36 @@ public class obstructionController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(tagsEnum.playerzone.ToString()))
         {
-            color.a = Mathf.Min(1, .01f + color.a);
+            color.a = 1;
             spriteRenderer.color = color;
+            animator.SetTrigger("spawn_trigger");
         }
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        dashHitCheck(collision);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
+        dashHitCheck(collision);
+    }
+    private void dashHitCheck(Collision2D collision)
+    {
         if (collision.gameObject.CompareTag(tagsEnum.player.ToString()))
         {
-            playerController2 player= collision.gameObject.GetComponent<playerController2>();
+            playerController2 player = collision.gameObject.GetComponent<playerController2>();
 
             if (!player.isDashing) return;
 
             collider2D.enabled = false;
 
+            if (!player.isFacingRight)
+                transform.Rotate(0f, 180f, 0f);
+
             animator.SetTrigger("break_trigger");
-            
+
+
+            Destroy(gameObject, 5f);
         }
     }
 }

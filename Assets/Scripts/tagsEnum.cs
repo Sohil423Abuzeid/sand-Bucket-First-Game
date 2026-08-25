@@ -8,4 +8,5 @@ public enum tagsEnum
     ground =1,
     obstruction =2,
     playerzone = 3,
+    voidlimit =4,
 }

@@ -13,7 +13,7 @@ public class cameraController : MonoBehaviour
     private playerController2 playerController;
     private Rigidbody2D rigidbody;
     private float nextY;
-    private float nextx;
+    private float nextX;
     private float targetx;
     private float xdiff;
     private float cameraCurrentSpeed;
@@ -24,7 +24,7 @@ public class cameraController : MonoBehaviour
         targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
 
 
-        nextx = targetx;
+        nextX = targetx;
         cameraCurrentSpeed = cameraHorizontalSpeedRunning;
     }
 
@@ -42,19 +42,25 @@ public class cameraController : MonoBehaviour
             targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
             cameraCurrentSpeed = cameraHorizontalSpeedRunning;
         }
-        xdiff = targetx - nextx;
+        xdiff = targetx - nextX;
         if (xdiff != 0)
         {
             if (Mathf.Abs(xdiff) < cameraCurrentSpeed)
-                nextx += xdiff;
+                nextX += xdiff;
             else
-                nextx += cameraCurrentSpeed * (xdiff / Mathf.Abs(xdiff));
+                nextX += cameraCurrentSpeed * (xdiff / Mathf.Abs(xdiff));
         }
 
     }
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(nextx, nextY, transform.position.z);
+        transform.position = new Vector3(nextX, nextY, transform.position.z);
+    }
+
+    public void ResetPostion()
+    {
+        nextX = player.transform.position.x;
+        nextY = player.transform.position.y;
     }
 }
