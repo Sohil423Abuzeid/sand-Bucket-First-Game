@@ -91,6 +91,7 @@ public class playerController2 : MonoBehaviour
         animator.SetBool("moving_bool", moveInput.x != 0);
         animator.SetFloat("velocity_float",isGrounded?0: currentVelocity.y);
         animator.SetBool("dash_bool", isDashing);
+        animator.SetBool("wasAirDashing_bool", wasAirDashing);
     }
     private void GatherInput()
     {

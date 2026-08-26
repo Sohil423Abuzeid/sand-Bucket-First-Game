@@ -36,7 +36,7 @@ MonoBehaviour:
   headDetectionRayLength: 0.05
   dashSpeed: 20
   dashTime: 0.5
-  dashCooldown: 0.2
+  dashCooldown: 0
   allowedDashes: 1
   dashDiagonalBias: 0.4
   dashGravityOnReleaseMultiplier: 2

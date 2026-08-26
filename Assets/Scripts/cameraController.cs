@@ -8,7 +8,9 @@ public class cameraController : MonoBehaviour
     public float horizontalShift = 3;
     public float verticalShift = 3;
     public float cameraHorizontalSpeedIdel = 0.03f;
-    public float cameraHorizontalSpeedRunning = 0.1f;
+    public float cameraHorizontalSpeedDashingPrecent = 0.9f;
+    public float cameraHorizontalSpeedReverceRunning = 0.1f;
+    public float cameraHorizontalSpeedRunningMultible = 2;
 
     private playerController2 playerController;
     private Rigidbody2D rigidbody;
@@ -17,6 +19,7 @@ public class cameraController : MonoBehaviour
     private float targetx;
     private float xdiff;
     private float cameraCurrentSpeed;
+    
     void Start()
     {
         playerController = player.GetComponent<playerController2>();
@@ -25,7 +28,7 @@ public class cameraController : MonoBehaviour
 
 
         nextX = targetx;
-        cameraCurrentSpeed = cameraHorizontalSpeedRunning;
+        cameraCurrentSpeed = cameraHorizontalSpeedReverceRunning;
     }
 
     void Update()
@@ -34,16 +37,25 @@ public class cameraController : MonoBehaviour
 
         if (playerController.moveInput.x != 0 || playerController.isDashing)
         {
+            Debug.Log(rigidbody.velocity.x);
             targetx = player.transform.position.x;
-            cameraCurrentSpeed = MathF.Abs(rigidbody.velocity.x) *cameraHorizontalSpeedRunning ;
+            xdiff = targetx - nextX;
+            if ((xdiff / Mathf.Abs(xdiff)) == playerController.moveInput.x ||((xdiff / Mathf.Abs(xdiff)) == (playerController.isFacingRight ? 1 : -1) && playerController.isDashing))
+            {
+                cameraCurrentSpeed = MathF.Abs(rigidbody.velocity.x)*Time.deltaTime* cameraHorizontalSpeedRunningMultible;
+            }
+            else
+                cameraCurrentSpeed = -1 * cameraHorizontalSpeedReverceRunning;
         }
         else
         {
             targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
-            cameraCurrentSpeed = cameraHorizontalSpeedRunning;
+            cameraCurrentSpeed = cameraHorizontalSpeedIdel;
         }
+
         xdiff = targetx - nextX;
-        if (xdiff != 0)
+
+        if (xdiff != 0&&cameraCurrentSpeed!= 0)
         {
             if (Mathf.Abs(xdiff) < cameraCurrentSpeed)
                 nextX += xdiff;

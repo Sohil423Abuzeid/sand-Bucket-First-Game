@@ -30,7 +30,6 @@ public class checkPointController : MonoBehaviour
             if(collision!=player.circleCollider)
             {
                 animator.SetBool("flagged_bool", true);
-                Debug.Log("we hit the asd");
                 player.resetSpawn(spawnPoint);
             }
         }
