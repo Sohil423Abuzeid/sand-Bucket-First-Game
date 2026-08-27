@@ -55,14 +55,21 @@ public class playerController2 : MonoBehaviour
 
     //Spawn 
     private Vector2 spawn;
+
+    //jumpeffect 
+    public GameObject jumpEffect;
+    private GameObject jumpEffectSettings;
     private void Awake()
     {
         spawn = transform.position;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
         cameraController = GameObject.FindAnyObjectByType<cameraController>();
         circleCollider = gameObject.GetComponentsInChildren<CircleCollider2D>()[0];
-        Debug.Log(circleCollider);
+
+        jumpEffectSettings = transform.Find("jumpEffectSettings").gameObject;
+
         // Math formulas mentioned in the video to calculate precise jump arcs
         gravity = -(2 * stats.jumpHeight) / Mathf.Pow(stats.timeToJumpApex, 2);
         initialJumpVelocity = Mathf.Abs(gravity) * stats.timeToJumpApex;
@@ -187,6 +194,7 @@ public class playerController2 : MonoBehaviour
             if ((isGrounded || coyoteTimer > 0) || (jumpsUsed < stats.allowedJumps))
             {
                 animator.SetTrigger("jump_trigger");
+                Instantiate(jumpEffect, jumpEffectSettings.transform.position,jumpEffectSettings.transform.rotation);
                 InitiateJump();
             }
         }

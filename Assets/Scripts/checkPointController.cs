@@ -21,7 +21,7 @@ public class checkPointController : MonoBehaviour
         //lightController = GetComponent<lightController>();
         //lightController.push(transform.Find("light1").GetComponent<Light2D>());
         //lightController.turnOof();
-        light2D = transform.Find("light1").GetComponent<Light2D>();
+        light2D = transform.Find("light1").gameObject.GetComponent<Light2D>();
         light2D.intensity = 0f;
     }
 
