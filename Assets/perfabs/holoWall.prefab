@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8137622844458650469}
   - component: {fileID: 133419039356759054}
   - component: {fileID: 5363709582729611193}
+  - component: {fileID: 7313486966967689297}
   m_Layer: 3
   m_Name: holoWall
   m_TagString: Untagged
@@ -168,9 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apearSpeed: 0.02
-  minIntensity: 0.5
-  maxIntensity: 1.5
-  lightChangeSpeed: 0.03
+  lightController: {fileID: 0}
 --- !u!50 &5363709582729611193
 Rigidbody2D:
   serializedVersion: 4
@@ -198,6 +197,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7313486966967689297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4749905708815090116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f038644e18be52c4c91e38224ddd5282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minIntensity: 0.5
+  maxIntensity: 1.5
+  lightChangeSpeed: 0.5
+  lights: []
+  lighting: 0
 --- !u!1 &7476076825893989416
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,7 +261,7 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 1
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.093
+  m_FalloffIntensity: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
   m_LightVolumeIntensity: 1

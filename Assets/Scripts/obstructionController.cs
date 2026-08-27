@@ -1,24 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEngine.Rendering.Universal;
+using UnityEditor.Rendering;
 using UnityEngine;
-using System;
+using UnityEngine.Rendering.Universal;
 
 public class obstructionController : MonoBehaviour
 {
     public float apearSpeed = .02f;
-    public float minIntensity = .75f;
-    public float maxIntensity = 1.5f;
-    public float lightChangeSpeed = .05f;
 
     private BoxCollider2D collider2D;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Color color;
-    private Light2D light2D;
-    private int lighting = 0;
+    public lightController lightController;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,37 +27,30 @@ public class obstructionController : MonoBehaviour
         color.a = 0f;
         spriteRenderer.color = color;
 
-        light2D = transform.Find("light").GetComponent<Light2D>();
-        light2D.intensity = 0f;
+
+        // light manage
+
+        lightController =GetComponent<lightController>();
+        Debug.Log(lightController);
+        lightController.push(transform.Find("light").GetComponent<Light2D>());
+        lightController.turnOof();
     }
 
     // Update is called once per frame
     void Update()
     {
-        lightHandeller();
     } 
 
-    private void lightHandeller()
-    {
-        if (lighting != 1) return;
-
-        if (light2D.intensity > maxIntensity&& lightChangeSpeed>0)
-            lightChangeSpeed *= -1;
-        
-        if (light2D.intensity < minIntensity&& lightChangeSpeed<0)
-            lightChangeSpeed *= -1;
-
-        light2D.intensity += lightChangeSpeed;
-    }
+   
    
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag(tagsEnum.playerzone.ToString()))
         {
             color.a = 1;
-            if (lighting == 0)
+            if (collider2D.enabled)
             {
-                lighting++;
+                lightController.turnON();
             }
             spriteRenderer.color = color;
             animator.SetTrigger("spawn_trigger");
@@ -83,8 +73,8 @@ public class obstructionController : MonoBehaviour
             if (!player.isDashing) return;
 
             collider2D.enabled = false;
-            lighting++;
-            light2D.intensity = 0f;
+
+            lightController.turnOof();
 
             if (!player.isFacingRight)
                 transform.Rotate(0f, 180f, 0f);

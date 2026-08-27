@@ -45,7 +45,7 @@ public class cameraController : MonoBehaviour
                 cameraCurrentSpeed = MathF.Abs(rigidbody.velocity.x)*Time.deltaTime* cameraHorizontalSpeedRunningMultible;
             }
             else
-                cameraCurrentSpeed = -1 * cameraHorizontalSpeedReverceRunning;
+                cameraCurrentSpeed =-1* cameraHorizontalSpeedReverceRunning;
         }
         else
         {
