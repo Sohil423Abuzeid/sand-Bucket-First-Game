@@ -211,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIntensity: 0.5
   maxIntensity: 1.5
-  lightChangeSpeed: 0.5
+  lightChangeSpeed: 0.51
   lights: []
   lighting: 0
 --- !u!1 &7476076825893989416
