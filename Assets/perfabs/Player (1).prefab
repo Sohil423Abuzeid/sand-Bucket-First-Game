@@ -1080,7 +1080,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 3
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -4207,8 +4207,8 @@ ParticleSystem:
     ratio: 1
     lifetime:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0.02
+      minMaxState: 0
+      scalar: 0.005
       minScalar: 0.03
       maxCurve:
         serializedVersion: 2
@@ -4275,7 +4275,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+      maxColor: {r: 0, g: 0.9622642, b: 0.9321177, a: 0.2509804}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4400,14 +4400,14 @@ ParticleSystem:
         m_RotationOrder: 4
     colorOverTrail:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 1
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+      maxColor: {r: 0, g: 1, b: 0.211133, a: 0.2509804}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 1, b: 1, a: 1}
-        key2: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0.0024482924, g: 0.90188676, b: 0, a: 0.4}
+        key1: {r: 0, g: 0.9942417, b: 1, a: 0.41568628}
+        key2: {r: 0, g: 0.9942417, b: 1, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
@@ -4415,14 +4415,14 @@ ParticleSystem:
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 0
         ctime1: 65535
-        ctime2: 0
+        ctime2: 65535
         ctime3: 0
         ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 65535
+        atime1: 65304
         atime2: 0
         atime3: 0
         atime4: 0
@@ -4430,7 +4430,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_ColorSpace: -1
+        m_ColorSpace: 0
         m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
@@ -5508,7 +5508,7 @@ MonoBehaviour:
   - {x: 0.88285375, y: -2.8180246, z: -0.000000029404958}
   m_ShapePathHash: 759025660
   m_Mesh: {fileID: 0}
-  m_InstanceId: -482884
+  m_InstanceId: -113034
   m_LocalBounds:
     m_Center: {x: 0.016151309, y: -0.46628618, z: 0}
     m_Extent: {x: 1.2013594, y: 2.3517385, z: 0}
