@@ -5,7 +5,31 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: ff4fa9a77c03ceb4dbf36bb669c07df4
+  - enabled: 1
+    path: Assets/Scenes/Levels.unity
+    guid: e0aab899d319c574baafebc6bf0bdbc5
+  - enabled: 1
+    path: Assets/Scenes/settings.unity
+    guid: e05e589dd4bba3c4a8c2a59382dadb6b
+  - enabled: 1
+    path: Assets/Scenes/credits.unity
+    guid: 9387b964cc391e646aa7faa2d4e0b56e
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: 042234ae94f5c4de491f2a045312ffc9
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 7081870375ab847e886a7570a05795db
+  - enabled: 0
+    path: Assets/Scenes/sohil sand box.unity
+    guid: 15bb7a86da739ca45ac17c417ad7f275
+  - enabled: 0
+    path: Assets/Scenes/template lvl.unity
+    guid: 33d8d35150d654b479348ffe739ba8a4
   m_configObjects: {}
