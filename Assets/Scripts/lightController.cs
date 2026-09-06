@@ -50,7 +50,6 @@ public class lightController : MonoBehaviour
         if (lighting) return;
 
         lighting = true;
-        Debug.Log("we hit it " + maxIntensity+" "+ lights.Count());
         for (int i = 0; i < lights.Count(); i++)
         {
             lights[i].intensity = maxIntensity;

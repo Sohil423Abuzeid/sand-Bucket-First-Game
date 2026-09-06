@@ -31,7 +31,6 @@ public class obstructionController : MonoBehaviour
         // light manage
 
         lightController =GetComponent<lightController>();
-        Debug.Log(lightController);
         lightController.push(transform.Find("light").GetComponent<Light2D>());
         lightController.turnOof();
     }

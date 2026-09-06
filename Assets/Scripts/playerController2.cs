@@ -59,6 +59,8 @@ public class playerController2 : MonoBehaviour
     //jumpeffect 
     public GameObject jumpEffect;
     private GameObject jumpEffectSettings;
+
+    public bool dialog = false;
     private void Awake()
     {
         spawn = transform.position;
@@ -77,8 +79,11 @@ public class playerController2 : MonoBehaviour
 
     private void Update()
     {
-        GatherInput();
         UpdateTimers();
+        GatherInput();
+
+        if (dialog) return;
+
         CheckJumpInput();
         DashCheck();
     }
@@ -102,9 +107,7 @@ public class playerController2 : MonoBehaviour
     }
     private void GatherInput()
     {
-        // Replace with your exact New Input System references
-        // e.g., moveInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        moveInput = new Vector2(Input.GetAxisRaw("Horizontal"), 0);
+        moveInput = new Vector2(dialog?0:Input.GetAxisRaw("Horizontal"), 0);
         isRunning = Input.GetKey(KeyCode.LeftShift);
     }
 

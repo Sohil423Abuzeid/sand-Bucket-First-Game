@@ -34,11 +34,9 @@ public class cameraController : MonoBehaviour
     void Update()
     {
         nextY = player.transform.position.y+verticalShift;
-
+        targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
         if (playerController.moveInput.x != 0 || playerController.isDashing)
         {
-            Debug.Log(rigidbody.velocity.x);
-            targetx = player.transform.position.x;
             xdiff = targetx - nextX;
             if ((xdiff / Mathf.Abs(xdiff)) == playerController.moveInput.x ||((xdiff / Mathf.Abs(xdiff)) == (playerController.isFacingRight ? 1 : -1) && playerController.isDashing))
             {
@@ -49,7 +47,6 @@ public class cameraController : MonoBehaviour
         }
         else
         {
-            targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
             cameraCurrentSpeed = cameraHorizontalSpeedIdel;
         }
 
