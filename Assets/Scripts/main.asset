@@ -20,11 +20,11 @@ MonoBehaviour:
   airDeceleration: 5
   jumpHeight: 2
   timeToJumpApex: 0.4
-  allowedJumps: 1
+  allowedJumps: 2
   jumpBufferTime: 0.1
   coyoteTime: 0.1
   apexHangTime: 0.1
-  apexThreshold: 1
+  apexThreshold: 0
   maxFallSpeed: 10
   fastFallTime: 0.1
   gravityMultiplierOnRelease: 2

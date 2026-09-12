@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/credits.unity
     guid: 9387b964cc391e646aa7faa2d4e0b56e
   - enabled: 1
+    path: Assets/Scenes/betweenScenes.unity
+    guid: f48ac2e06819d5c419c4e8554880f080
+  - enabled: 1
     path: Assets/Scenes/Level 1.unity
     guid: 042234ae94f5c4de491f2a045312ffc9
   - enabled: 1

@@ -12,6 +12,7 @@ public class checkPointController : MonoBehaviour
     //private lightController lightController;
     Light2D light2D;
     private playerController2 player;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class checkPointController : MonoBehaviour
         //lightController.turnOof();
         light2D = transform.Find("light1").gameObject.GetComponent<Light2D>();
         light2D.intensity = 0f;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -38,9 +40,11 @@ public class checkPointController : MonoBehaviour
                  player = collision.gameObject.GetComponent<playerController2>();
             if(collision!=player.circleCollider)
             {
+                if (light2D.intensity != 0f) return; 
                 //lightController.turnON();
                 light2D.intensity = 2f;
                 animator.SetBool("flagged_bool", true);
+                audioSource.Play();
                 player.resetSpawn(spawnPoint);
             }
         }

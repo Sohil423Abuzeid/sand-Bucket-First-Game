@@ -37,6 +37,7 @@ public class LevelButton : MonoBehaviour
 
     private void OnMouseDown()
     {
-        SceneManager.LoadSceneAsync(level + mainMenuController.firstLevelIndex-1);
+        PlayerPrefs.SetInt("next", level + mainMenuController.firstLevelIndex - 1);
+        SceneManager.LoadSceneAsync(4);
     }
 }

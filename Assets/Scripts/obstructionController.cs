@@ -15,6 +15,7 @@ public class obstructionController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Color color;
+    private AudioSource audioSource;
     public lightController lightController;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,7 @@ public class obstructionController : MonoBehaviour
         color.a = 0f;
         spriteRenderer.color = color;
 
-
+        audioSource= GetComponent<AudioSource>();
         // light manage
 
         lightController =GetComponent<lightController>();
@@ -80,6 +81,7 @@ public class obstructionController : MonoBehaviour
 
             animator.SetTrigger("break_trigger");
 
+            audioSource.Play();
 
             Destroy(gameObject, 5f);
         }

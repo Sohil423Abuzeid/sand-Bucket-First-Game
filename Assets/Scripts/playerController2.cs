@@ -128,7 +128,7 @@ public class playerController2 : MonoBehaviour
             bumpedHead = Physics2D.BoxCast(headCollider.bounds.center, headCollider.bounds.size, 0f, Vector2.up, stats.headDetectionRayLength, stats.groundLayer);
         }
 
-        if (isGrounded)
+        if (isGrounded&&currentVelocity.y<0f )
         {
             coyoteTimer = stats.coyoteTime;
             jumpsUsed = 0;
@@ -141,12 +141,8 @@ public class playerController2 : MonoBehaviour
                 wasAirDashing = false;
             }
         }
-        else if (coyoteTimer > 0 && currentVelocity.y < 0)
-        {
-            // If we fall off a ledge without jumping, consume a jump so we don't get a free double jump
-            coyoteTimer = 0;
-            jumpsUsed++;
-        }
+        
+
     }
 
     private void HandleMovement()
@@ -194,10 +190,11 @@ public class playerController2 : MonoBehaviour
         // Initiate Jump if buffer is active and we meet conditions
         if (jumpBufferTimer > 0)
         {
-            if ((isGrounded || coyoteTimer > 0) || (jumpsUsed < stats.allowedJumps))
+            if ( (jumpsUsed < stats.allowedJumps))
             {
                 animator.SetTrigger("jump_trigger");
-                Instantiate(jumpEffect, jumpEffectSettings.transform.position,jumpEffectSettings.transform.rotation);
+                GameObject temp = Instantiate(jumpEffect, jumpEffectSettings.transform.position,jumpEffectSettings.transform.rotation);
+                Destroy(temp, 3f);
                 InitiateJump();
             }
         }

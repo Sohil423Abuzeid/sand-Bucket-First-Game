@@ -5426,6 +5426,7 @@ MonoBehaviour:
   isFacingRight: 1
   isDashing: 0
   jumpEffect: {fileID: 6117412694463642163, guid: 0e9e6007c1c6f6744a9ce59b1a350252, type: 3}
+  dialog: 0
 --- !u!61 &6687162351417736880
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5508,7 +5509,7 @@ MonoBehaviour:
   - {x: 0.88285375, y: -2.8180246, z: -0.000000029404958}
   m_ShapePathHash: 759025660
   m_Mesh: {fileID: 0}
-  m_InstanceId: -113034
+  m_InstanceId: -148470
   m_LocalBounds:
     m_Center: {x: 0.016151309, y: -0.46628618, z: 0}
     m_Extent: {x: 1.2013594, y: 2.3517385, z: 0}
