@@ -172,6 +172,7 @@ public class playerController2 : MonoBehaviour
 
     private void CheckJumpInput()
     {
+        if (isDashing) return;
         // Jump Pressed
         if (Input.GetKeyDown(KeyCode.Space)) 
         {
