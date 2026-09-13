@@ -9,6 +9,7 @@ TagManager:
   - player
   - playerzone
   - voidlimit
+  - endgame
   layers:
   - Default
   - TransparentFX
