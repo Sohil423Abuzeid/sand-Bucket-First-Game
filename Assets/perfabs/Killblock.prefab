@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7980282160178223461}
   - component: {fileID: 5953357590478142464}
   - component: {fileID: 8828973190388500032}
+  - component: {fileID: 8728902229594383506}
   m_Layer: 0
   m_Name: Killblock
   m_TagString: voidlimit
@@ -130,3 +131,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.15, y: 1.05}
   m_EdgeRadius: 0
+--- !u!114 &8728902229594383506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6011357048312505191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -1.6199989, y: -0.525, z: 0}
+  - {x: -1.6199989, y: 0.525, z: 0}
+  - {x: 1.6199989, y: 0.525, z: 0}
+  - {x: 1.6199989, y: -0.525, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -164646
+  m_LocalBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 1.6199989, y: 0.525, z: 0}
