@@ -9,4 +9,5 @@ public enum tagsEnum
     obstruction =2,
     playerzone = 3,
     voidlimit =4,
+    endgame =5,
 }

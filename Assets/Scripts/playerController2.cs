@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 public class playerController2 : MonoBehaviour
 {
@@ -61,6 +63,8 @@ public class playerController2 : MonoBehaviour
     private GameObject jumpEffectSettings;
 
     public bool dialog = false;
+    private bool endgame = false;
+    public int level = 1;
     private void Awake()
     {
         spawn = transform.position;
@@ -79,10 +83,11 @@ public class playerController2 : MonoBehaviour
 
     private void Update()
     {
+        
         UpdateTimers();
         GatherInput();
 
-        if (dialog) return;
+        if (dialog||endgame) return;
 
         CheckJumpInput();
         DashCheck();
@@ -107,8 +112,13 @@ public class playerController2 : MonoBehaviour
     }
     private void GatherInput()
     {
+        if(endgame)
+        {
+            moveInput = new Vector2(1, 0);
+            return;
+        }
         moveInput = new Vector2(dialog?0:Input.GetAxisRaw("Horizontal"), 0);
-        isRunning = Input.GetKey(KeyCode.LeftShift);
+        isRunning = Input.GetKey(KeyCode.C);
     }
 
     private void UpdateTimers()
@@ -378,6 +388,20 @@ public class playerController2 : MonoBehaviour
     {
         transform.position = spawn;
         cameraController.ResetPostion();
+        isDashing = false;
+        isAirDashing = false;
+
+        if (!isGrounded)
+        {
+            isDashFastFalling = true;
+            wasAirDashing = true;
+            dashFastFallTime = 0f;
+            dashFastFallReleaseSpeed = currentVelocity.y;
+        }
+        else
+        {
+            StartCoroutine(ResetDashCounter());
+        }
     }
 
     
@@ -389,5 +413,24 @@ public class playerController2 : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.gameObject.tag);
+        if (!endgame&&other.gameObject.CompareTag(tagsEnum.endgame.ToString()))
+        {
+            StartCoroutine(endgame2());
+            endgame = true;
+            PlayerPrefs.SetInt(level.ToString(), 1);
+            PlayerPrefs.SetInt("next", 0);
+            cameraController cam = GameObject.FindObjectOfType<cameraController>();
+            cam.followPlayer = false;
+        }
+    }
+    private IEnumerator endgame2()
+    {
+        yield return new WaitForSeconds(3);
 
+        SceneManager.LoadSceneAsync(4);
+
+    }
 }

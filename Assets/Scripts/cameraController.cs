@@ -20,6 +20,7 @@ public class cameraController : MonoBehaviour
     private float xdiff;
     private float cameraCurrentSpeed;
     
+    public bool followPlayer = true;
     void Start()
     {
         playerController = player.GetComponent<playerController2>();
@@ -33,6 +34,7 @@ public class cameraController : MonoBehaviour
 
     void Update()
     {
+        if (!followPlayer) return;
         nextY = player.transform.position.y+verticalShift;
         targetx = player.transform.position.x + (horizontalShift * (playerController.isFacingRight ? 1 : -1));
         if (playerController.moveInput.x != 0 || playerController.isDashing)
