@@ -37,6 +37,8 @@ public class LevelButton : MonoBehaviour
 
     private void OnMouseDown()
     {
+        for (int i = 1; i < level; i++)
+            if (PlayerPrefs.GetInt(i.ToString(), 0) == 0) return;
         PlayerPrefs.SetInt("next", level + mainMenuController.firstLevelIndex - 1);
         SceneManager.LoadSceneAsync(4);
     }
