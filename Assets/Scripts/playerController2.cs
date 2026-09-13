@@ -10,7 +10,7 @@ public class playerController2 : MonoBehaviour
     public BoxCollider2D feetCollider;
     public BoxCollider2D headCollider;
     public CircleCollider2D circleCollider;
-
+    public int level = 1;
     private Rigidbody2D rb;
     private Animator animator;
     private cameraController cameraController;
@@ -64,7 +64,7 @@ public class playerController2 : MonoBehaviour
 
     public bool dialog = false;
     private bool endgame = false;
-    public int level = 1;
+    
     private void Awake()
     {
         spawn = transform.position;
